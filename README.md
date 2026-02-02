@@ -90,63 +90,79 @@ src/
 ```bash
 python -m venv venv
 source venv/bin/activate   # Windows: venv\Scripts\activate
+```
 
-2️⃣ Install dependencies
+### 2️⃣ Install dependencies
+```bash
 pip install -r requirements.txt
+```
 
-3️⃣ Install & run Ollama
+### 3️⃣ Install & run Ollama
+```bash
 ollama pull mistral
 ollama run mistral
+```
 
-4️⃣ (Optional) Set Hugging Face token
+### 4️⃣ (Optional) Set Hugging Face token
+```bash
 setx HF_TOKEN "your_huggingface_token"
+```
 
-🖥️ Run the Application
-CLI mode
+---
+
+## 🖥️ Run the Application
+
+### CLI mode
+```bash
 python app.py
+```
 
-Streamlit Chat UI
+### Streamlit Chat UI
+```bash
 streamlit run ui.py
+```
 
-🧪 Example Queries
+---
 
-Banking FAQ
+## 🧪 Example Queries
 
+### Banking FAQ
+
+```
 How do I reset my debit card PIN?
+```
 
+### Investment Advice
 
-Investment Advice
-
+```
 I want to invest in mutual funds for 3 years with moderate risk
-
+```
 
 The system automatically detects intent and routes the query.
 
-🧩 Design Philosophy
+---
 
-Local-first & private — no user data leaves the machine
+## 🧩 Design Philosophy
 
-Modular pipelines — easy to extend with new domains
+- **Local-first & private** — no user data leaves the machine
+- **Modular pipelines** — easy to extend with new domains
+- **LLM as reasoning engine, not knowledge base**
+- **RAG for grounding & reliability**
+- **Simple UX, intelligent backend**
 
-LLM as reasoning engine, not knowledge base
+---
 
-RAG for grounding & reliability
+## 🛣️ Future Extensions
 
-Simple UX, intelligent backend
+- Market & news RAG
+- Source citation in UI
+- FastAPI backend
+- Dockerized deployment
+- Migration to modern LangChain (RunnableSequence)
 
-🛣️ Future Extensions
+---
 
-Market & news RAG
+## 📌 Status
 
-Source citation in UI
-
-FastAPI backend
-
-Dockerized deployment
-
-Migration to modern LangChain (RunnableSequence)
-
-📌 Status
-
-Current State: Fully functional multi-domain RAG assistant
-Target Use: Learning, demos, and foundation for production systems
+- **Current State:** Fully functional multi-domain RAG assistant
+- **Target Use:** Learning, demos, and foundation for production systems
