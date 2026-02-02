@@ -24,50 +24,68 @@ query routing**.
 
 ## 🧠 System Architecture
 
-User (Streamlit Chat UI)
-|
-v
-Intent Classifier (LLM)
-|
-v
-┌───────────────┬────────────────┐
-│ FAQ RAG │ Investment RAG │
-│ (BankFAQs) │ (Finance CSV) │
-└───────────────┴────────────────┘
-|
-v
-Mistral-7B (Ollama, Local)
-
+```
+┌─────────────────────────────────────┐
+│   User (Streamlit Chat UI)         │
+└────────────────┬────────────────────┘
+                 │
+                 ▼
+         ┌───────────────────┐
+         │ Intent Classifier │
+         │      (LLM)        │
+         └────────┬──────────┘
+                  │
+        ┌─────────┴─────────┐
+        ▼                   ▼
+┌───────────────┐   ┌───────────────┐
+│   FAQ RAG     │   │ Investment    │
+│  (BankFAQs)   │   │  RAG (CSV)    │
+└───────┬───────┘   └───────┬───────┘
+        │                   │
+        └─────────┬─────────┘
+                  ▼
+      ┌─────────────────────┐
+      │   Mistral-7B via    │
+      │   Ollama (Local)    │
+      └─────────────────────┘
+```
 
 
 ---
 
 ## 📁 Project Structure
 
-
-
-
-src/
-├── app.py # CLI-based unified assistant
-├── ui.py # Streamlit chat UI
-├── config.py # Central configuration
-├── llm.py # LLM (Ollama) wrapper
-├── embeddings.py # Embedding model loader
+```
+LLM-RAG_Finance_UseCases/
+├── src/
+│   ├── app.py                    # CLI-based unified assistant
+│   ├── ui.py                     # Streamlit chat UI
+│   ├── config.py                 # Central configuration
+│   ├── llm.py                    # LLM (Ollama) wrapper
+│   ├── embeddings.py             # Embedding model loader
+│   │
+│   ├── ingestion/
+│   │   ├── faq_data.py           # Bank FAQ ingestion
+│   │   └── investment_data.py    # Investment dataset ingestion
+│   │
+│   ├── vectorstore/
+│   │   ├── faq_store.py          # FAQ vector DB
+│   │   └── investment_store.py   # Investment vector DB
+│   │
+│   ├── pipelines/
+│   │   ├── faq_qa.py             # FAQ RAG pipeline
+│   │   └── investment_advisor.py # Investment advisory pipeline
+│   │
+│   └── router/
+│       └── intent_router.py      # Query intent classification
 │
-├── ingestion/
-│ ├── faq_data.py # Bank FAQ ingestion
-│ └── investment_data.py # Investment dataset ingestion
+├── data/
+│   ├── BankFAQs.csv              # Banking FAQ dataset
+│   └── Finance_data.csv          # Investment preference dataset
 │
-├── vectorstore/
-│ ├── faq_store.py # FAQ vector DB
-│ └── investment_store.py # Investment vector DB
-│
-├── pipelines/
-│ ├── faq_qa.py # FAQ RAG pipeline
-│ └── investment_advisor.py
-│
-├── router/
-│ └── intent_router.py # Query intent classification
+├── requirements.txt              # Python dependencies
+└── README.md                     # Project documentation
+```
 
 
 ---
