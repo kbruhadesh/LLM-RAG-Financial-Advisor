@@ -57,32 +57,41 @@ query routing**.
 
 ```
 LLM-RAG_Finance_UseCases/
-├── src/
-│   ├── app.py                    # CLI-based unified assistant
-│   ├── ui.py                     # Streamlit chat UI
+├── src/                          # Backend & UI source code
+│   ├── app.py                    # Main CLI-based entry point
+│   ├── ui.py                     # Streamlit web interface
+│   ├── main.py                   # Testing script for advisory pipeline
 │   ├── config.py                 # Central configuration
 │   ├── llm.py                    # LLM (Ollama) wrapper
 │   ├── embeddings.py             # Embedding model loader
 │   │
-│   ├── ingestion/
+│   ├── ingestion/                # Data loading & processing
 │   │   ├── faq_data.py           # Bank FAQ ingestion
-│   │   └── investment_data.py    # Investment dataset ingestion
+│   │   ├── investment_data.py    # Investment dataset ingestion
+│   │   └── news_data.py          # News dataset ingestion
 │   │
-│   ├── vectorstore/
+│   ├── vectorstore/              # Vector DB management logic
 │   │   ├── faq_store.py          # FAQ vector DB
-│   │   └── investment_store.py   # Investment vector DB
+│   │   ├── investment_store.py   # Investment vector DB
+│   │   └── news_store.py         # News vector DB
 │   │
-│   ├── pipelines/
-│   │   ├── faq_qa.py             # FAQ RAG pipeline
-│   │   └── investment_advisor.py # Investment advisory pipeline
+│   ├── pipelines/                # RAG pipelines
+│   │   ├── faq_qa.py             # FAQ RAG logic
+│   │   ├── investment_advisor.py # Investment advisory pipeline
+│   │   └── news_qa.py            # News RAG pipeline
 │   │
-│   └── router/
-│       └── intent_router.py      # Query intent classification
+│   └── router/                   # Query routing
+│       ├── intent_router.py      # LLM intent classification
+│       └── domain_embeddings.py  # Semantic routing
 │
-├── data/
-│   ├── BankFAQs.csv              # Banking FAQ dataset
-│   └── Finance_data.csv          # Investment preference dataset
+├── vector_store/                 # Persistent ChromaDB data
+│   ├── faqs/                     # FAQ vector index
+│   ├── investment/               # Investment vector index
+│   └── investment_news/          # News vector index
 │
+├── BankFAQs.csv                  # Banking FAQ dataset
+├── Finance_data.csv              # Investment preference dataset
+├── LLM_+_RAG_for_Finance.ipynb   # Development notebook (V1-V4)
 ├── requirements.txt              # Python dependencies
 └── README.md                     # Project documentation
 ```
@@ -132,12 +141,12 @@ setx HF_TOKEN "your_huggingface_token"
 
 ### CLI mode
 ```bash
-python app.py
+python src/app.py
 ```
 
 ### Streamlit Chat UI
 ```bash
-streamlit run ui.py
+streamlit run src/ui.py
 ```
 
 ---
